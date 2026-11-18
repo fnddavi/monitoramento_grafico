@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Monitoramento do sistema</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">PAINEL DE ACOMPANHAMENTO</p>
+          <h1>Monitoramento do sistema</h1>
+          <p id="period-description" class="subtitle">Carregando dados…</p>
+        </div>
+        <label class="upload-button" for="csv-file">
+          <span>Carregar outro CSV</span>
+          <input id="csv-file" type="file" accept=".csv,text/csv" />
+        </label>
+      </header>
+
+      <section class="summary-grid" aria-label="Últimas medições">
+        <article class="summary-card temperature-card">
+          <span>Temperatura da CPU</span>
+          <strong id="last-temperature">—</strong>
+          <small id="temperature-note">última leitura</small>
+        </article>
+        <article class="summary-card cpu-card">
+          <span>Uso de CPU</span>
+          <strong id="last-cpu">—</strong>
+          <small>última leitura</small>
+        </article>
+        <article class="summary-card ram-card">
+          <span>Uso de RAM</span>
+          <strong id="last-ram">—</strong>
+          <small>última leitura</small>
+        </article>
+        <article class="summary-card swap-card">
+          <span>Uso de swap</span>
+          <strong id="last-swap">—</strong>
+          <small>última leitura</small>
+        </article>
+      </section>
+
+      <section class="dashboard">
+        <aside class="controls" aria-label="Controles do gráfico">
+          <div class="control-group">
+            <h2>Período</h2>
+            <label for="start-date">De</label>
+            <input id="start-date" type="datetime-local" step="1" />
+            <label for="end-date">Até</label>
+            <input id="end-date" type="datetime-local" step="1" />
+          </div>
+
+          <div class="control-group">
+            <h2>Métricas</h2>
+            <label class="metric-option"><input type="checkbox" name="metric" value="temperature" checked /><i class="temperature-dot"></i>Temperatura</label>
+            <label class="metric-option"><input type="checkbox" name="metric" value="cpu" checked /><i class="cpu-dot"></i>CPU</label>
+            <label class="metric-option"><input type="checkbox" name="metric" value="ram" checked /><i class="ram-dot"></i>RAM</label>
+            <label class="metric-option"><input type="checkbox" name="metric" value="swap" checked /><i class="swap-dot"></i>Swap</label>
+          </div>
+
+          <button id="reset-filters" class="secondary-button" type="button">Exibir todo o período</button>
+          <p id="records-count" class="records-count">—</p>
+        </aside>
+
+        <section class="chart-card" aria-labelledby="chart-title">
+          <div class="chart-heading">
+            <div>
+              <h2 id="chart-title">Histórico das medições</h2>
+              <p>CPU, RAM e swap usam a escala à esquerda; temperatura usa a escala à direita.</p>
+            </div>
+            <span id="chart-status" class="chart-status">Carregando…</span>
+          </div>
+          <div id="plot-area" class="plot-area">
+            <canvas id="chart" aria-label="Gráfico de monitoramento ao longo do tempo" role="img"></canvas>
+            <div id="tooltip" class="chart-tooltip" role="status" aria-live="polite"></div>
+          </div>
+          <p id="empty-message" class="empty-message" hidden>Nenhuma medição foi encontrada para os filtros escolhidos.</p>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
